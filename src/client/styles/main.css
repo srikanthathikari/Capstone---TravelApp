@@ -1,0 +1,30 @@
+@import "./mobile.css";
+
+body {
+  padding-top: 0%;
+  font-family: "Lato", sans-serif;
+  background-color: black;
+  color: white;
+  text-transform: capitalize;
+}
+.Page1 {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas:
+    "header1Page1"
+    "getStartButton";
+}
+
+.commonForPage1 {
+  font-size: 5vh;
+  text-align: center;
+}
+#header1Page1 {
+  height: 50vh;
+}
+#getStartButton {
+  justify-self: center;
+  height: fit-content;
+  width: fit-content;
+}
