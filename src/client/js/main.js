@@ -1,8 +1,9 @@
 
 
 const getStartedButton = document.getElementById('getStartButton');
-const labelText =  "Name Please";
+const Userform = document.getElementById('userForm');
 
 getStartedButton.addEventListener("click", function(event){
-   getStartedButton.style.display = "none";
+    getStartedButton.className = "hideButton";
+    Userform.className = "UserDetails"
 });
