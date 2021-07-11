@@ -20,7 +20,7 @@ body {
   text-align: center;
 }
 #header1Page1 {
-  height: 50vh;
+  height: 20vh;
 }
 #getStartButton {
   justify-self: center;
@@ -33,22 +33,26 @@ body {
   width: max-content;
   margin: auto;
 }
-#name{
-    padding-right: 10vw;
-    padding-bottom: 2vh;
-    padding-top: 2vh;
-}
-#place{
-    padding-right: 10vw;
-    padding-bottom: 2vh;
-    padding-top: 2vh;
-}
-#date{
-    padding-right: 10vw;
-    padding-bottom: 2vh;
-    padding-top: 2vh;
+.insideForm{
+  padding-right: 10vw;
+  padding-bottom: 2vh;
+  padding-top: 2vh;
+  margin-top: 2vh;
+
 }
 .hideButton{
     display: none;
+}
+
+#Done{
+  background-color: black;
+  color: white;
+  padding: auto;
+  font-size: larger;
+}
+.spacerForHeader{
+  color: darkseagreen;
+  font-size: 3vw;
+  text-align: center;
 }
 
