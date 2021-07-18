@@ -15,16 +15,36 @@ function handleSubmit(event) {
     let nameValue = document.getElementById('name').value;
     let placeValue = document.getElementById('place').value;
     let dateValue = document.getElementById('date').value;
-    headerText.textContent = `There you go ${nameValue}`;
+    headerText.textContent = `Best results just for you ${nameValue}`;
     headerText.className = "spacerForHeader"
     Userform.style.display = "none";
 
     getCoordinates(placeValue).then(function (coordinatesData) {
-        callWeatherAPIForFuture('http://localhost:8080/weatherBitAPICall').then((weatherInformation)=>{
-            updateUI(weatherInformation,placeValue)
+        callWeatherAPIForFuture('http://localhost:8080/weatherBitAPICall').then((weatherInformation) => {
+            getSomeImagesForSearch('http://localhost:8080/getImages', placeValue).then((imageData) => {
+                let image = imageData.hits[0].webformatURL
+                updateUI(weatherInformation, placeValue,image)
+            })
         })
     })
-       
+}
+
+const getSomeImagesForSearch = async (url, placeValue) => {
+    const images = await fetch(url,  {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ placeValue }),
+    });
+    try {
+        const imageData = await images.json();
+        return imageData;
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
 
 const getCoordinates = async (placeValue) => {
@@ -43,8 +63,8 @@ const getCoordinates = async (placeValue) => {
         console.log(error);
     }
 }
-    
-const callWeatherAPIForFuture = async(url) =>{
+
+const callWeatherAPIForFuture = async (url) => {
     const getWeather = await fetch(url);
     try {
         const weatherInformation = await getWeather.json();
@@ -54,13 +74,15 @@ const callWeatherAPIForFuture = async(url) =>{
     }
 }
 
-const updateUI = async(weatherInformation, placeValue) =>{
-    // console.log(weatherInformation)
-    try{
-        document.getElementById('weather').innerHTML = `The weather in ${placeValue} is ${weatherInformation.temp} &#176 C`
-        document.getElementById('sunrise').innerHTML = `You can enjoy the sunrise at ${weatherInformation.sunrise}`
+const updateUI = async (weatherInformation, placeValue, imageData) => {
+    console.log(imageData)
+    try {
+        document.getElementById('weather').innerHTML = `The weather in ${placeValue} is ${weatherInformation.temp} &#176 C`;
+        document.getElementById('sunrise').innerHTML = `You can enjoy the sunrise at ${weatherInformation.sunrise}`;
+        document.getElementById('imageForLocation').src = imageData;
     }
-    catch(err){
+    catch (err) {
+        console.log(err)
 
     }
 }

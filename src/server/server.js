@@ -4,8 +4,10 @@ const cors = require('cors');
 const fetch = require('node-fetch');
 const baseUrl = "http://api.geonames.org/searchJSON?";
 const weatherBitApi = "https://api.weatherbit.io/v2.0/current?";
+const pixabayApi = "https://pixabay.com/api/?"
 const username = "srikanth.athikari"
 const apiKey = "a0b66e8f25824320a59d2ea34eb93175";
+const pixabayApikey = "22545256-f4b7dd6452e05a515c6c63567";
 
 const port = 8080;
 const app = express();
@@ -47,4 +49,19 @@ app.get('/weatherBitAPICall', async (req, res) => {
     catch (error) {
         console.log("error", error)
     }
+})
+
+app.post('/getImages', async (req, res) => {
+    const locationFromUser = req.body.placeValue;
+    const imageCall = await fetch(`${pixabayApi}key=${pixabayApikey}&q=${locationFromUser}`, { method: 'POST' });
+    try {
+        const imageResponse = await imageCall.json();
+        // let imageUrl = imageResponse.hits[0].pageURL;
+        // console.log(imageResponse)
+        res.send(imageResponse);
+    }
+    catch (err) {
+        console.log(err);
+    }
+
 })

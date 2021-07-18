@@ -57,7 +57,13 @@ body {
 }
 .Page1Part3{
   text-align: center;
-  font-size: large;
+  font-size: larger;
+}
+.Page1Part3 div {
+  font-size: 5vh;
+}
 
+#imageForLocation{
+  padding-top:  10vh;
 }
 
