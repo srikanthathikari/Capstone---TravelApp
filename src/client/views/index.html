@@ -22,7 +22,8 @@
           <input type="text" placeholder="Please Enter Your Name" id="name" class="insideForm">
           <input type = "text" placeholder="Please Enter the place" id="place" class="insideForm"> 
           <input type = "date" id="date" class="insideForm">
-          <button class="insideForm" id="Done"  onclick=" return handleSubmit(event)">Ready ? Let's Travel</button>
+          <button class="insideForm" id="Done"  onclick=" return Client.handleSubmit(event)"
+          onsubmit="return handleSubmit(event)">Ready ? Let's Travel</button>
       </form>
     </section>
     <section class="Page1Part3">
@@ -32,5 +33,4 @@
     </section>
 </body>
 
-<script src='../js/main.js'></script>
 </html>

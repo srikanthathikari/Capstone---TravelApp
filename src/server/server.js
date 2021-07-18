@@ -20,6 +20,13 @@ app.listen(port, function () {
     console.log('Server is listening');
 })
 
+app.use(express.static('dist'))
+
+app.get('/', (req,res)=>{
+    res.sendFile('dist/index.html', { root: '.' })
+})
+
+
 app.post('/test', async (req, res) => {
     const locationFromUser = req.body.placeValue;
     const apiCall = await fetch(`${baseUrl}q=${locationFromUser}&maxRows=1&username=${username}`, { method: 'POST' });
