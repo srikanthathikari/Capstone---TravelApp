@@ -6,7 +6,7 @@
   <meta http-equiv='X-UA-Compatible' content='IE=edge'>
   <title>Travel App</title>
   <meta name='viewport' content='width=device-width, initial-scale=1'>
-  <link rel='stylesheet' type='text/css' media='screen' href='../styles/main.css'>
+  <!-- <link rel='stylesheet' type='text/css' media='screen' href='../styles/main.css'> -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
@@ -21,7 +21,7 @@
     <form class="hideButton" id="userForm">
       <input type="text" placeholder="Please Enter Your Name" id="name" class="insideForm">
       <input type="text" placeholder="Please Enter the place" id="place" class="insideForm">
-      <input type="date" id="date" class="insideForm">
+      <input type="date" id="date" class="insideForm" onclick=" return Client.datePicker(event)">
       <button class="insideForm" id="Done" onclick=" return Client.handleSubmit(event)"
         onsubmit="return handleSubmit(event)">Ready ? Let's Travel</button>
     </form>
