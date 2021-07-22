@@ -23,14 +23,14 @@ function handleSubmit(event) {
         callWeatherAPIForFuture('http://localhost:8080/weatherBitAPICall').then((weatherInformation) => {
             getSomeImagesForSearch('http://localhost:8080/getImages', placeValue).then((imageData) => {
                 let image = imageData.hits[0].webformatURL
-                updateUI(weatherInformation, placeValue, image)
+                updateUI(weatherInformation, placeValue,image)
             })
         })
     })
 }
 
 const getSomeImagesForSearch = async (url, placeValue) => {
-    const images = await fetch(url, {
+    const images = await fetch(url,  {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
@@ -83,17 +83,17 @@ const updateUI = async (weatherInformation, placeValue, imageData) => {
     }
     catch (err) {
         console.log(err)
-
+                       
     }
 }
 
 
 
-export { handleSubmit }
-export { getSomeImagesForSearch }
-export { getCoordinates }
-export { callWeatherAPIForFuture }
-export { updateUI }
+export { handleSubmit} 
+export {getSomeImagesForSearch}
+export {getCoordinates }
+export {callWeatherAPIForFuture}
+export {updateUI}
 
 
 
