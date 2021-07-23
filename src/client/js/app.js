@@ -1,14 +1,16 @@
-
+import "regenerator-runtime/runtime";
 
 const planYourTrip = document.getElementById('getStartButton');
 const Userform = document.getElementById('userForm');
 const doneButton = document.getElementById('Done');
 const headerText = document.getElementById('header1Page1');
 
-planYourTrip.addEventListener("click", function (event) {
-    planYourTrip.className = "hideButton";
-    Userform.className = "UserDetails"
-});
+window.onload = () => {
+    planYourTrip.addEventListener("click", function (event) {
+        planYourTrip.className = "hideButton";
+        Userform.className = "UserDetails"
+    });
+}
 
 function handleSubmit(event) {
     event.preventDefault();
