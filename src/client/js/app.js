@@ -5,6 +5,9 @@ const Userform = document.getElementById('userForm');
 const doneButton = document.getElementById('Done');
 const headerText = document.getElementById('header1Page1');
 
+/*Plan your trip has an event listener, upon click on "Plan Your Trip" button the form would be displayed
+in the same page hiding existing text button and displaying form
+*/
 window.onload = () => {
     planYourTrip.addEventListener("click", function (event) {
         planYourTrip.className = "hideButton";
@@ -12,6 +15,12 @@ window.onload = () => {
     });
 }
 
+/* 
+ handleSubmit is the function that listen's to the event on filling the form
+ After the click there would be a call to geoname API to get coordinates(latitude and longitude),
+ On the reponse the next call would be happening to weatherBit API to get the weather details for the details that has entered by the user
+ Once we have both of those another final API call would be made to get a image for the location that the user has entered
+*/
 function handleSubmit(event) {
     event.preventDefault();
     let nameValue = document.getElementById('name').value;
@@ -25,14 +34,14 @@ function handleSubmit(event) {
         callWeatherAPIForFuture('http://localhost:8080/weatherBitAPICall').then((weatherInformation) => {
             getSomeImagesForSearch('http://localhost:8080/getImages', placeValue).then((imageData) => {
                 let image = imageData.hits[0].webformatURL
-                updateUI(weatherInformation, placeValue,image)
+                updateUI(weatherInformation, placeValue, image)
             })
         })
     })
 }
 
 const getSomeImagesForSearch = async (url, placeValue) => {
-    const images = await fetch(url,  {
+    const images = await fetch(url, {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
@@ -76,6 +85,10 @@ const callWeatherAPIForFuture = async (url) => {
     }
 }
 
+
+/*
+Upon fetching all the API details a weather forecast for the location and an image would be updated with the below function dynamically
+*/
 const updateUI = async (weatherInformation, placeValue, imageData) => {
     console.log(imageData)
     try {
@@ -85,17 +98,18 @@ const updateUI = async (weatherInformation, placeValue, imageData) => {
     }
     catch (err) {
         console.log(err)
-                       
+
     }
 }
 
 
+// These functions would be exported and imported in the index.js file
 
-export { handleSubmit} 
-export {getSomeImagesForSearch}
-export {getCoordinates }
-export {callWeatherAPIForFuture}
-export {updateUI}
+export { handleSubmit }
+export { getSomeImagesForSearch }
+export { getCoordinates }
+export { callWeatherAPIForFuture }
+export { updateUI }
 
 
 

@@ -26,6 +26,8 @@ app.get('/', (req,res)=>{
     res.sendFile('dist/index.html', { root: '.' })
 })
 
+/*
+A post call to /test end point is happening to get the coordinates of a location that includes latitude and longitude*/
 
 app.post('/test', async (req, res) => {
     const locationFromUser = req.body.placeValue;
@@ -39,8 +41,10 @@ app.post('/test', async (req, res) => {
     }
 })
 
+//  response from /test endpoint has been formatted and sent to store in coordinates object
 let coordinatesData = {};
 
+// A call to weath bit API endpoint and the response is stored in the below object
 let weatherInformation = {};
 
 app.get('/weatherBitAPICall', async (req, res) => {
@@ -58,6 +62,7 @@ app.get('/weatherBitAPICall', async (req, res) => {
     }
 })
 
+// A call to pixabi API endpoint and the response is sent and displayed directly on the client side
 app.post('/getImages', async (req, res) => {
     const locationFromUser = req.body.placeValue;
     const imageCall = await fetch(`${pixabayApi}key=${pixabayApikey}&q=${locationFromUser}`, { method: 'POST' });
