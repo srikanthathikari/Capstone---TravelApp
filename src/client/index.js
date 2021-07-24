@@ -5,6 +5,7 @@ import { getSomeImagesForSearch } from './js/app';
 import { getCoordinates } from './js/app';
 import { callWeatherAPIForFuture } from './js/app';
 import { updateUI } from './js/app';
+import { checkForName } from './js/nameChecker'
 import '../client/styles/main.scss';
 
 
@@ -14,6 +15,7 @@ export {
     getSomeImagesForSearch,
     getCoordinates,
     callWeatherAPIForFuture,
-    updateUI
+    updateUI,
+    checkForName
 
 }

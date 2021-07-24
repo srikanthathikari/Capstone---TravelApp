@@ -13,26 +13,32 @@ window.onload = () => {
 }
 
 function handleSubmit(event) {
-    event.preventDefault();
+
     let nameValue = document.getElementById('name').value;
     let placeValue = document.getElementById('place').value;
     let dateValue = document.getElementById('date').value;
-    headerText.textContent = `Best results just for you ${nameValue}`;
-    headerText.className = "spacerForHeader"
-    Userform.style.display = "none";
+    if (Client.checkForName(placeValue)) {
+        event.preventDefault();
+        headerText.textContent = `Best results just for you ${nameValue}`;
+        headerText.className = "spacerForHeader"
+        Userform.style.display = "none";
 
-    getCoordinates(placeValue).then(function (coordinatesData) {
-        callWeatherAPIForFuture('http://localhost:8080/weatherBitAPICall').then((weatherInformation) => {
-            getSomeImagesForSearch('http://localhost:8080/getImages', placeValue).then((imageData) => {
-                let image = imageData.hits[0].webformatURL
-                updateUI(weatherInformation, placeValue,image)
+        getCoordinates(placeValue).then(function (coordinatesData) {
+            callWeatherAPIForFuture('http://localhost:8080/weatherBitAPICall').then((weatherInformation) => {
+                getSomeImagesForSearch('http://localhost:8080/getImages', placeValue).then((imageData) => {
+                    let image = imageData.hits[0].webformatURL
+                    updateUI(weatherInformation, placeValue, image)
+                })
             })
         })
-    })
+    }
+    else {
+        // alert('Please enter a valid URL')
+    }
 }
 
 const getSomeImagesForSearch = async (url, placeValue) => {
-    const images = await fetch(url,  {
+    const images = await fetch(url, {
         method: 'POST',
         credentials: 'same-origin',
         headers: {
@@ -85,17 +91,17 @@ const updateUI = async (weatherInformation, placeValue, imageData) => {
     }
     catch (err) {
         console.log(err)
-                       
+
     }
 }
 
 
 
-export { handleSubmit} 
-export {getSomeImagesForSearch}
-export {getCoordinates }
-export {callWeatherAPIForFuture}
-export {updateUI}
+export { handleSubmit }
+export { getSomeImagesForSearch }
+export { getCoordinates }
+export { callWeatherAPIForFuture }
+export { updateUI }
 
 
 
