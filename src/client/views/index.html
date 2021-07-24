@@ -12,23 +12,35 @@
 </head>
 
 <body>
+
   <section class="Page1">
+
     <h2 class="commonForPage1" id="header1Page1"> Welcome to the world's leading travel space</h2>
     <button class="commonForPage1" id="getStartButton">Plan your trip</button>
+
   </section>
+
   <section class="Page1Part2">
+
     <form class="hideButton" id="userForm">
-      <input type="text" placeholder="Please Enter Your Name" id="name" class="insideForm">
-      <input type="text" placeholder="Please Enter the place" id="place" class="insideForm">
-      <input type="date" id="date" class="insideForm">
-      <button class="insideForm" id="Done" onclick=" return Client.handleSubmit(event)"
+      <input type="text" placeholder="Please Enter Your Name" id="name" class="insideForm"  name = "name" required/>
+      <input type="text" placeholder="Please Enter the place" id="place" class="insideForm" required/>
+      <input type="text" placeholder="Please Enter the Country" id="country" class="insideForm">
+      <input type="date" id="date" class="insideForm" required/>
+      <button type = "submit"   class="insideForm" id="Done" onclick=" return Client.handleSubmit(event)"
         onsubmit="return handleSubmit(event)">Ready ? Let's Travel</button>
     </form>
+
   </section>
+
   <section class="Page1Part3">
+
     <div id="weather"></div>
     <div id="sunrise"></div>
+    <div id="currency"></div>
     <img id="imageForLocation">
+
+
   </section>
 
   <script>
