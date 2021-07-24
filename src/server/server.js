@@ -2,10 +2,12 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const fetch = require('node-fetch');
+const { async } = require('regenerator-runtime');
 const baseUrl = "http://api.geonames.org/searchJSON?";
 const weatherBitApi = "https://api.weatherbit.io/v2.0/current?";
 const pixabayApi = "https://pixabay.com/api/?"
 const username = "srikanth.athikari"
+const countryAPI = "https://restcountries.eu/rest/v2/name/";
 const apiKey = "a0b66e8f25824320a59d2ea34eb93175";
 const pixabayApikey = "22545256-f4b7dd6452e05a515c6c63567";
 
@@ -71,6 +73,21 @@ app.post('/getImages', async (req, res) => {
         // let imageUrl = imageResponse.hits[0].pageURL;
         // console.log(imageResponse)
         res.send(imageResponse);
+    }
+    catch (err) {
+        console.log(err);
+    }
+})
+
+app.post('/getCountryDetails', async (req,res) =>{
+    const countryValueFromUser = req.body.countryValue;
+    const countryCall = await fetch(`${countryAPI}${countryValueFromUser}`, { method: 'GET' });
+    try {
+        const countryCallResponse = await countryCall.json();
+
+        // let currencyForCountry = countryCallResponse[0].currencies[0].name;
+        console.log(countryCallResponse)
+        res.send(countryCallResponse);
     }
     catch (err) {
         console.log(err);

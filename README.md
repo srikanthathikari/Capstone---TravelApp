@@ -26,3 +26,7 @@ Weatherbit is used to get current and forecast weather information depending on 
 Pixabay
 
 Returns,the images of the given location on the UI.
+
+
+****Suggestions to Make Project Stand Out*****
+Integrated the REST Countries API to pull in data for the country being visited that will display the country's currency and display on the UI.

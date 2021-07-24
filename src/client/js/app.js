@@ -1,3 +1,4 @@
+
 import "regenerator-runtime/runtime";
 
 const planYourTrip = document.getElementById('getStartButton');
@@ -25,6 +26,7 @@ function handleSubmit(event) {
     event.preventDefault();
     let nameValue = document.getElementById('name').value;
     let placeValue = document.getElementById('place').value;
+    let countryValue = document.getElementById('country').value;
     let dateValue = document.getElementById('date').value;
     headerText.textContent = `Best results just for you ${nameValue}`;
     headerText.className = "spacerForHeader"
@@ -32,12 +34,34 @@ function handleSubmit(event) {
 
     getCoordinates(placeValue).then(function (coordinatesData) {
         callWeatherAPIForFuture('http://localhost:8080/weatherBitAPICall').then((weatherInformation) => {
-            getSomeImagesForSearch('http://localhost:8080/getImages', placeValue).then((imageData) => {
-                let image = imageData.hits[0].webformatURL
-                updateUI(weatherInformation, placeValue, image)
+            getCountryDetails('http://localhost:8080/getCountryDetails', countryValue).then((currencyData) => {
+                getSomeImagesForSearch('http://localhost:8080/getImages', placeValue).then((imageData) => {
+                    let image = imageData.hits[0].webformatURL
+                    updateUI(weatherInformation, placeValue, image,currencyData,countryValue)
+                })
             })
         })
     })
+}
+
+const getCountryDetails = async (url, countryValue) => {
+    const currency = await fetch(url, {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ countryValue }),
+    })
+    try {
+        console.log('see me here');
+        const currencyData = await currency.json();
+        // console.log(currencyData);
+        return currencyData[0].currencies[0].name;
+    }
+    catch (err) {
+        console.log(err);
+    }
 }
 
 const getSomeImagesForSearch = async (url, placeValue) => {
@@ -85,16 +109,16 @@ const callWeatherAPIForFuture = async (url) => {
     }
 }
 
-
 /*
 Upon fetching all the API details a weather forecast for the location and an image would be updated with the below function dynamically
 */
-const updateUI = async (weatherInformation, placeValue, imageData) => {
-    console.log(imageData)
+const updateUI = async (weatherInformation, placeValue, imageData,currencyData,countryValue) => {
+    console.log(currencyData)
     try {
         document.getElementById('weather').innerHTML = `The weather in ${placeValue} is ${weatherInformation.temp} &#176 C`;
         document.getElementById('sunrise').innerHTML = `You can enjoy the sunrise at ${weatherInformation.sunrise}`;
         document.getElementById('imageForLocation').src = imageData;
+        document.getElementById('currency').innerHTML = `The currency in the ${countryValue} is ${currencyData}`
     }
     catch (err) {
         console.log(err)
