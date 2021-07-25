@@ -86,7 +86,7 @@ app.post('/getCountryDetails', async (req,res) =>{
         const countryCallResponse = await countryCall.json();
 
         // let currencyForCountry = countryCallResponse[0].currencies[0].name;
-        console.log(countryCallResponse)
+        // console.log(countryCallResponse)
         res.send(countryCallResponse);
     }
     catch (err) {

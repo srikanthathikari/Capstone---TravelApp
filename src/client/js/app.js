@@ -1,5 +1,6 @@
 
 import "regenerator-runtime/runtime";
+import {getCoordinates} from '../js/getCoordinates';
 
 const planYourTrip = document.getElementById('getStartButton');
 const Userform = document.getElementById('userForm');
@@ -54,9 +55,7 @@ const getCountryDetails = async (url, countryValue) => {
         body: JSON.stringify({ countryValue }),
     })
     try {
-        console.log('see me here');
         const currencyData = await currency.json();
-        // console.log(currencyData);
         return currencyData[0].currencies[0].name;
     }
     catch (err) {
@@ -79,23 +78,6 @@ const getSomeImagesForSearch = async (url, placeValue) => {
     }
     catch (err) {
         console.log(err);
-    }
-}
-
-const getCoordinates = async (placeValue) => {
-    const response = await fetch('http://localhost:8080/test', {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ placeValue }),
-    });
-    try {
-        const coordinatesData = await response.json();
-        return coordinatesData;
-    } catch (error) {
-        console.log(error);
     }
 }
 
@@ -131,7 +113,6 @@ const updateUI = async (weatherInformation, placeValue, imageData,currencyData,c
 
 export { handleSubmit }
 export { getSomeImagesForSearch }
-export { getCoordinates }
 export { callWeatherAPIForFuture }
 export { updateUI }
 

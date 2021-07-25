@@ -1,5 +1,5 @@
 import { handleSubmit } from "../src/client/js/app";
-import { getCoordinates } from "../src/client/js/app";
+import { getCoordinates } from "../src/client/js/getCoordinates";
 
 
 describe("Testing the submit functionality", () => {
