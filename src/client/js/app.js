@@ -1,6 +1,7 @@
 
 import "regenerator-runtime/runtime";
 import {getCoordinates} from '../js/getCoordinates';
+import {callWeatherAPIForFuture} from '../js/callWeatherAPI'
 
 const planYourTrip = document.getElementById('getStartButton');
 const Userform = document.getElementById('userForm');
@@ -81,15 +82,7 @@ const getSomeImagesForSearch = async (url, placeValue) => {
     }
 }
 
-const callWeatherAPIForFuture = async (url) => {
-    const getWeather = await fetch(url);
-    try {
-        const weatherInformation = await getWeather.json();
-        return weatherInformation;
-    } catch (error) {
-        console.log(error);
-    }
-}
+
 
 /*
 Upon fetching all the API details a weather forecast for the location and an image would be updated with the below function dynamically
@@ -113,7 +106,6 @@ const updateUI = async (weatherInformation, placeValue, imageData,currencyData,c
 
 export { handleSubmit }
 export { getSomeImagesForSearch }
-export { callWeatherAPIForFuture }
 export { updateUI }
 
 
