@@ -16,4 +16,4 @@ const getCoordinates = async (placeValue) => {
     }
 }
 
-export { getCoordinates}
+export { getCoordinates }

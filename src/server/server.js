@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -6,13 +8,10 @@ const { async } = require('regenerator-runtime');
 const baseUrl = "http://api.geonames.org/searchJSON?";
 const weatherBitApi = "https://api.weatherbit.io/v2.0/current?";
 const pixabayApi = "https://pixabay.com/api/?"
-const username = "srikanth.athikari"
 const countryAPI = "https://restcountries.eu/rest/v2/name/";
-const apiKey = "a0b66e8f25824320a59d2ea34eb93175";
-const pixabayApikey = "22545256-f4b7dd6452e05a515c6c63567";
-
 const port = 8080;
 const app = express();
+
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -24,7 +23,7 @@ app.listen(port, function () {
 
 app.use(express.static('dist'))
 
-app.get('/', (req,res)=>{
+app.get('/', (req, res) => {
     res.sendFile('dist/index.html', { root: '.' })
 })
 
@@ -33,6 +32,8 @@ A post call to /test end point is happening to get the coordinates of a location
 
 app.post('/test', async (req, res) => {
     const locationFromUser = req.body.placeValue;
+    const username = process.env.USER_NAME;
+    // console.log(username)
     const apiCall = await fetch(`${baseUrl}q=${locationFromUser}&maxRows=1&username=${username}`, { method: 'POST' });
     try {
         const data = await apiCall.json();
@@ -50,6 +51,7 @@ let coordinatesData = {};
 let weatherInformation = {};
 
 app.get('/weatherBitAPICall', async (req, res) => {
+    const apiKey = process.env.API_KEY;
     let latitude = coordinatesData.geonames[0].lat;
     let longitude = coordinatesData.geonames[0].lng;
     const weatherCall = await fetch(`${weatherBitApi}lat=${latitude}&lon=${longitude}&key=${apiKey}`, { method: 'POST' });
@@ -66,6 +68,8 @@ app.get('/weatherBitAPICall', async (req, res) => {
 
 // A call to pixabi API endpoint and the response is sent and displayed directly on the client side
 app.post('/getImages', async (req, res) => {
+
+    const pixabayApikey = process.env.PIXABY_API_KEY;
     const locationFromUser = req.body.placeValue;
     const imageCall = await fetch(`${pixabayApi}key=${pixabayApikey}&q=${locationFromUser}`, { method: 'POST' });
     try {
@@ -79,7 +83,7 @@ app.post('/getImages', async (req, res) => {
     }
 })
 
-app.post('/getCountryDetails', async (req,res) =>{
+app.post('/getCountryDetails', async (req, res) => {
     const countryValueFromUser = req.body.countryValue;
     const countryCall = await fetch(`${countryAPI}${countryValueFromUser}`, { method: 'GET' });
     try {

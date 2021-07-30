@@ -8,4 +8,4 @@ const callWeatherAPIForFuture = async (url) => {
     }
 }
 
-export {callWeatherAPIForFuture}
+export { callWeatherAPIForFuture }
