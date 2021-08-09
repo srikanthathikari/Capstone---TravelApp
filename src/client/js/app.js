@@ -14,7 +14,7 @@ const headerText = document.getElementById('header1Page1');
 in the same page hiding existing text button and displaying form
 */
 window.onload = () => {
-    planYourTrip.addEventListener("click", function (event) {
+    planYourTrip.addEventListener("click", function () {
         planYourTrip.className = "hideButton";
         Userform.className = "UserDetails"
     });
@@ -26,26 +26,32 @@ window.onload = () => {
  On the reponse the next call would be happening to weatherBit API to get the weather details for the details that has entered by the user
  Once we have both of those another final API call would be made to get a image for the location that the user has entered
 */
+
 function handleSubmit(event) {
     event.preventDefault();
     let nameValue = document.getElementById('name').value;
     let placeValue = document.getElementById('place').value;
     let countryValue = document.getElementById('country').value;
     let dateValue = document.getElementById('date').value;
-    headerText.textContent = `Best results just for you ${nameValue}`;
-    headerText.className = "spacerForHeader"
-    Userform.style.display = "none";
+    if (nameValue === '' || placeValue === '' || countryValue  === '' || dateValue === '') {
+        window.alert('Please enter information in all the fields')
+    }
+    else {
+        headerText.textContent = `Best results just for you ${nameValue}`;
+        headerText.className = "spacerForHeader"
+        Userform.style.display = "none";
 
-    getCoordinates(placeValue).then(function (coordinatesData) {
-        callWeatherAPIForFuture('http://localhost:8080/weatherBitAPICall').then((weatherInformation) => {
-            getCountryDetails('http://localhost:8080/getCountryDetails', countryValue).then((currencyData) => {
-                getSomeImagesForSearch('http://localhost:8080/getImages', placeValue).then((imageData) => {
-                    let image = imageData.hits[0].webformatURL
-                    updateUI(weatherInformation, placeValue, image, currencyData, countryValue)
+        getCoordinates(placeValue).then(function (coordinatesData) {
+            callWeatherAPIForFuture('http://localhost:8080/weatherBitAPICall').then((weatherInformation) => {
+                getCountryDetails('http://localhost:8080/getCountryDetails', countryValue).then((currencyData) => {
+                    getSomeImagesForSearch('http://localhost:8080/getImages', placeValue).then((imageData) => {
+                        let image = imageData.hits[0].webformatURL
+                        updateUI(weatherInformation, placeValue, image, currencyData, countryValue)
+                    })
                 })
             })
         })
-    })
+    }
 }
 
 /*
