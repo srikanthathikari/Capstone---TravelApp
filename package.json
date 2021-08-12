@@ -1,6 +1,10 @@
 {
   "name": "capstone---travelapp",
   "version": "1.0.0",
+  "engines": {
+    "node": "10.15.1",
+    "npm":  "7.11.1"
+  },
   "description": "Travel App Project",
   "main": "index.js",
   "scripts": {
