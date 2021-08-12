@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "engines": {
     "node": "10.15.1",
-    "npm":  "7.11.1"
+    "npm": "7.11.1"
   },
   "description": "Travel App Project",
   "main": "index.js",
@@ -48,7 +48,7 @@
     "style-loader": "^2.0.0",
     "webpack": "^5.45.1",
     "webpack-cli": "^4.7.2",
-    "webpack-dev-server": "^1.16.5",
+    "webpack-dev-server": "^3.11.2",
     "workbox-webpack-plugin": "^6.1.5"
   }
 }
